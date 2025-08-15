@@ -8,3 +8,4 @@
 	-> 1 start
 	-> at least 1 collectible
 	-> valid path
+	_. make sure width != height
