@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:01:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/15 22:29:35 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/16 14:52:12 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ typedef struct s_map
 }	t_map;
 
 
+int	read_and_parse(int fd, char	*name);
 
 #endif
