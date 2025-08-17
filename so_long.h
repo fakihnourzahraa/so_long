@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:01:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/16 14:52:12 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/17 19:35:57 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <mlx.h>
 
 # include "ft_printf/ft_printf.h"
 
@@ -33,12 +34,25 @@ typedef struct s_map
 
 	int		ff_collec;
 	char	**ff_grid;
-	
-	int		y;
-	int		x;
+
+	int		p_y;
+	int		p_x;
+	int		e_x;
+	int		e_y;
 }	t_map;
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
-int	read_and_parse(int fd, char	*name);
 
+int		read_and_parse(int fd, char	*name);
+void	flood_fill(t_map *map, int i, int j);
+void	get_p(t_map *map);
+void	get_e(t_map *map);
+int		check_len(t_map *map);
 #endif

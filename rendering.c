@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/15 15:10:40 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/17 19:32:34 by nfakih           ###   ########.fr       */
+/*   Created: 2025/08/17 19:32:58 by nfakih            #+#    #+#             */
+/*   Updated: 2025/08/17 19:35:38 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+# include "so_long.h"
 
-void	error_message(void)
+int	start(t_map	map)
 {
-	ft_printf("Error\n");
-}
+	void	*mlx;
+	void	*mlx_win;
 
-int	main(int argc, char **argv)
-{
-	int	fd;
-
-	mlx_init();
-	if (argc != 2 || !ft_strstr(argv[1], ".ber"))
-		return (error_message(), 1);
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1 || !read_and_parse(fd, argv[1]))
-		return (error_message(), 1);
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+	img = mlx_new_image(mlx, 1920, 1080);
+	mlx_loop(mlx);
 }

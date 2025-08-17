@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/16 16:47:02 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/17 19:14:36 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	get_height(t_map *map)
 	char	**grid;
 	int		l;
 	int		i;
-	
+
 	grid = (*map).g;
-		(*map).y = 0;
+	(*map).height = 0;
 	i = 0;
 	l = ft_strlen(grid[0]) - 1;
 	while (grid[i])
@@ -28,7 +28,7 @@ int	get_height(t_map *map)
 			return (0);
 		i++;
 	}
-	(*map).y = i;
+	(*map).height = i;
 	return (1);
 }
 
@@ -40,9 +40,9 @@ int	get_width(t_map *map)
 
 	grid = (*map).g;
 	i = 0;
-	(*map).x = 0;
+	(*map).width = 0;
 	j = ft_strlen(grid[0]);
-	while(i < j)
+	while (i < j)
 	{
 		if (grid[0][i] != '1')
 			return (0);
@@ -51,15 +51,16 @@ int	get_width(t_map *map)
 	i = 0;
 	while (i < j)
 	{
-		if (grid[(*map).y - 1][i] != '1')
+		if (grid[(*map).height - 1][i] != '1')
 			return (0);
 		i++;
 	}
-	(*map).x = i + 1;
+	(*map).width = i - 1;
 	return (1);
 }
 //get heigh get width also validate the walls
-//we also need to make sure they're all equal (the first line could be the shortest)
+//we also need to make sure they're all equal
+//(the first line could be the shortest)
 // in case we reach a new line, so it doesn't set w[j] = 0;
 
 int	vars(t_map map, char a)
@@ -67,7 +68,7 @@ int	vars(t_map map, char a)
 	int		i;
 	int		j;
 	int		c;
-	char **grid;
+	char	**grid;
 
 	i = -1;
 	c = 0;
@@ -78,27 +79,21 @@ int	vars(t_map map, char a)
 		j = -1;
 		while (grid[i][++j])
 		{
-			if (grid[i][j] == 'P')
-			{
-				map.x = i;
-				map.y = j;
-			}
 			if (grid[i][j] == a)
 				c++;
 			if (!(grid[i][j] == '1' || grid[i][j] == '0' || grid[i][j] == 'E'
 				|| grid[i][j] == 'P' || grid[i][j] == 'C'))
-					return (0);
+				return (0);
 		}
 	}
 	if (a == 'C' && c >= 1)
 		return (c);
-	if (c == 1)
-		return (1);
-	return (0);
+	return (c == 1);
 }
+
 int	add_lines(char *name, int fd, t_map *m)
 {
-	int 	i;
+	int		i;
 	char	*add;
 	char	**grid;
 	t_map	map;
@@ -108,38 +103,43 @@ int	add_lines(char *name, int fd, t_map *m)
 		i++;
 	close(fd);
 	fd = open(name, O_RDONLY);
+	if (fd == -1 || i == 0)
+		return (0);
 	grid = malloc (sizeof(char *) * i + 1);
 	i = 0;
-	while (add = get_next_line(fd))
+	add = get_next_line(fd);
+	while (add)
 	{
+		if (!add)
+			return (0);
 		if (add[ft_strlen(add) - 1] == '\n')
 			add[ft_strlen(add) - 1] = '\0';
-		grid[i] = malloc (sizeof(char) * (ft_strlen(add) + 1));
-		grid[i] = add;
-		i++;
+		grid[i++] = add;
+		add = get_next_line(fd);
 	}
-	map.x = 50;
-	map.g = grid;
-	*m = map;
+	return (map.g = grid, *m = map, 1);
 }
+
 int	read_and_parse(int fd, char *name)
 {
 	t_map	map;
-	int		i;
 	int		c;
-	
-	i = 0;
-	map.x = 0;
-	map.y = 0;
-	add_lines(name, fd, &map);
+
+	map.width = 0;
+	map.height = 0;
+	if (!add_lines(name, fd, &map))
+		return (0);
 	c = vars(map, 'C');
-	if (!( vars(map, 'E') && vars(map, 'P') && c ))
+	if (!(vars(map, 'E') && vars(map, 'P') && c))
 		return (0);
 	map.collec = c;
-	//make sure all edges exist
-	get_height(&map);
-	get_width(&map);
-	if (!map.x || !map.y || (map.y == map.x))
+	if (!get_height(&map) || !get_width(&map) || !check_len(&map))
+		return (0);
+	get_p(&map);
+	get_e(&map);
+	map.ff_grid = map.g;
+	flood_fill(&map, map.p_x, map.p_y);
+	if (map.g[map.e_x][map.e_y] == 'E' || map.ff_collec != map.collec)
 		return (0);
 	return (1);
 }
