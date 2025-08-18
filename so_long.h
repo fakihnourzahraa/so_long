@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:01:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 20:36:01 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/18 22:43:28 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <mlx.h>
+# include "../minilibx-linux/mlx.h"
 
 # include "ft_printf/ft_printf.h"
 
