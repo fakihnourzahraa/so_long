@@ -6,25 +6,56 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:10:40 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/17 19:32:34 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/18 20:35:18 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	error_message(void)
+int errors(t_map *map, int argc, char **argv)
 {
-	ft_printf("Error\n");
+	int fd;
+	if (argc != 2 || !ft_strstr(argv[1], ".ber"))
+		return (-1);
+	fd = open(argv[1], O_RDONLY);
+	if (!read_and_parse(map, fd, argv[1]))
+		return (-1);
+	return (fd);
 }
+void	intialize(t_game *game)
+{
+	t_map	map;
+	void	*mlx;
+	void	*win;
 
+	map = *(*game).map;
+	mlx = mlx_init();
+	if (!mlx)
+		return (error_message(), nothinn());
+	win = mlx_new_window(mlx, map.width * 64, map.height * 64, "so_long");
+	if (!win)
+		return (error_message(), nothin());
+	game->mlx = &mlx;
+	game->wind = &win;
+}
 int	main(int argc, char **argv)
 {
-	int	fd;
-
-	mlx_init();
-	if (argc != 2 || !ft_strstr(argv[1], ".ber"))
-		return (error_message(), 1);
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1 || !read_and_parse(fd, argv[1]))
-		return (error_message(), 1);
+	t_map 	map;
+	void	*mlx;
+	t_game	game;
+	
+	if (errors(&map, argc, argv) == -1)
+		return (error_message(), 0);
+	game.map = &map;
+	intialize(&game);
+	void *img = mlx_new_image(mlx, 800, 600);
+	get_image(&game);
+	draw(&game);
+	mlx_key_hook(game.wind, keys, &game);
+	mlx_loop_hook(game.mlx, function(), &game);
+	mlx_hook(game.wind, 17, 0, function(), &game);
+	mlx_loop(game.mlx);
+	mlx_loop(mlx);
 }
+//mlx key hook, takes for the function within it (keys) param as the third parameter given
+//17 0 for x

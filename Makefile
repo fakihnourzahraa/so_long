@@ -8,7 +8,7 @@ SRC =	 main.c \
 	Libft/ft_split.c Libft/ft_strchr.c Libft/ft_strdup.c Libft/ft_strjoin.c \
 	Libft/ft_strlcat.c Libft/ft_strlcpy.c Libft/ft_strlen.c Libft/ft_strncmp.c \
 	Libft/ft_strnstr.c Libft/ft_strrchr.c Libft/ft_strstr.c Libft/ft_strtrim.c \
-	Libft/ft_substr.c  parsing.c validation.c\
+	Libft/ft_substr.c  parsing.c validation.c keys.c draw.c\
 
 
 OBJ     = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:11:33 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/17 19:08:57 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/18 20:35:40 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,6 @@ void	get_p(t_map *map)
 			}
 		}
 	}
-}
-
-void	nothinn(void)
-{
-	write(1, "", 0);
 }
 
 void	flood_fill(t_map *map, int i, int j)

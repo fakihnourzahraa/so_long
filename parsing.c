@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/17 19:14:36 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/18 18:40:50 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,12 @@ int	add_lines(char *name, int fd, t_map *m)
 	return (map.g = grid, *m = map, 1);
 }
 
-int	read_and_parse(int fd, char *name)
+int	read_and_parse(t_map *m, int fd, char *name)
 {
 	t_map	map;
 	int		c;
 
+	map = *m;
 	map.width = 0;
 	map.height = 0;
 	if (!add_lines(name, fd, &map))

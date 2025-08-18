@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/17 19:32:58 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 18:16:01 by nfakih           ###   ########.fr       */
+/*   Created: 2025/08/18 20:33:16 by nfakih            #+#    #+#             */
+/*   Updated: 2025/08/18 20:33:48 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
 
-int	start(t_map	map)
+void	keys(int code, void *p)
 {
-	void	*mlx;
-	void	*mlx_win;
-	int 	endian;
+	t_game	*game;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, map.width * 64, map.height * 64, "so_long");
-	void *img = mlx_new_image(mlx, 800, 600);
-	char *data=mlx_get_data_addr(img, 64, 7680, &endian);
-	mlx_loop(mlx);
+	game = (t_game *)p;
+	
+	if (code == 65361)
+		move_left(game);
+	else if (code == 65363)
+		move_right(game);
+	else if (code == 65363)
+		move_up(game);
+	else if (code == 65364)
+		move_down(game);
+	else if (code == 65307)
+		escape_game(game);
 }
