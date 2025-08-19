@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/19 15:29:54 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 20:11:40 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	get_width(t_map *map)
 //(the first line could be the shortest)
 // in case we reach a new line, so it doesn't set w[j] = 0;
 
-int	vars(t_map map, char a)
+int	vars(t_map *map, char a)
 {
 	int		i;
 	int		j;
@@ -73,7 +73,7 @@ int	vars(t_map map, char a)
 	i = -1;
 	c = 0;
 	j = -1;
-	grid = map.g;
+	grid = map->g;
 	while (grid[++i])
 	{
 		j = -1;
@@ -96,7 +96,6 @@ int	add_lines(char *name, int fd, t_map *m)
 	int		i;
 	char	*add;
 	char	**grid;
-	t_map	map;
 
 	i = 0;
 	while (get_next_line(fd))
@@ -117,7 +116,8 @@ int	add_lines(char *name, int fd, t_map *m)
 		grid[i++] = add;
 		add = get_next_line(fd);
 	}
-	return (map.g = grid, *m = map, 1);
+	m->g = grid;
+	return (1);
 }
 
 int	read_and_parse(t_map *m, int fd, char *name)
@@ -130,8 +130,10 @@ int	read_and_parse(t_map *m, int fd, char *name)
 	map.height = 0;
 	if (!add_lines(name, fd, &map))
 		return (0);
-	c = vars(map, 'C');
-	if (!(vars(map, 'E') && vars(map, 'P') && c))
+	if (m->g)
+		printf("yes");
+	c = vars(&map, 'C');
+	if (!(vars(&map, 'E') && vars(&map, 'P') && c))
 		return (0);
 	map.collec = c;
 	if (!get_height(&map) || !get_width(&map) || !check_len(&map))
@@ -142,5 +144,6 @@ int	read_and_parse(t_map *m, int fd, char *name)
 	flood_fill(&map, map.p_x, map.p_y);
 	if (map.g[map.e_x][map.e_y] == 'E' || map.ff_collec != map.collec)
 		return (0);
+	m = &map;
 	return (1);
 }
