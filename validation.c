@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:11:33 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 20:35:40 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 15:29:54 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	get_e(t_map *map)
 
 	i = -1;
 	grid = (*map).g;
+	(*map).ff_collec = 0;
 	while (grid[++i])
 	{
 		j = -1;
@@ -53,7 +54,7 @@ void	get_e(t_map *map)
 	}
 }
 
-void	get_p(t_map *map)
+void	update_p(t_map *map)
 {
 	int		i;
 	int		j;
@@ -61,7 +62,6 @@ void	get_p(t_map *map)
 
 	i = -1;
 	grid = (*map).g;
-	(*map).ff_collec = 0;
 	while (grid[++i])
 	{
 		j = -1;

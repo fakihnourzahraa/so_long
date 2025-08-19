@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:10:40 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 20:35:18 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 16:44:41 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,25 @@ void	intialize(t_game *game)
 		return (error_message(), nothinn());
 	win = mlx_new_window(mlx, map.width * 64, map.height * 64, "so_long");
 	if (!win)
-		return (error_message(), nothin());
+		return (error_message(), nothinn());
 	game->mlx = &mlx;
 	game->wind = &win;
+	game->img = mlx_new_image(game->mlx, 800, 600);
+	get_image(game);
 }
 int	main(int argc, char **argv)
 {
 	t_map 	map;
-	void	*mlx;
 	t_game	game;
 	
 	if (errors(&map, argc, argv) == -1)
 		return (error_message(), 0);
 	game.map = &map;
 	intialize(&game);
-	void *img = mlx_new_image(mlx, 800, 600);
-	get_image(&game);
 	draw(&game);
 	mlx_key_hook(game.wind, keys, &game);
-	mlx_loop_hook(game.mlx, function(), &game);
-	mlx_hook(game.wind, 17, 0, function(), &game);
+
 	mlx_loop(game.mlx);
-	mlx_loop(mlx);
 }
 //mlx key hook, takes for the function within it (keys) param as the third parameter given
 //17 0 for x

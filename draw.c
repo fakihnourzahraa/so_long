@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:34:22 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 20:34:29 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 15:21:23 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	get_image(t_game *game)
 	void	*m;
 
 	m = game->mlx;
-	(game)->txt.bg = mlx_xpm_file_to_image(m, "", &w, &h);
-	(game)->txt.collec = mlx_xpm_file_to_image(m, "", &w, &h);
-	(game)->txt.exit = mlx_xpm_file_to_image(m, "", &w, &h);
-	(game)->txt.player = mlx_xpm_file_to_image(m, "", &w, &h);
-	(game)->txt.wall = mlx_xpm_file_to_image(m, "", &w, &h);
+	(game)->txt.bg = mlx_xpm_file_to_image(m, "textures/bg.xpm", &w, &h);
+	(game)->txt.collec = mlx_xpm_file_to_image(m, "texture/collec.xpm", &w, &h);
+	(game)->txt.exit = mlx_xpm_file_to_image(m, "textures/exit.xpm", &w, &h);
+	(game)->txt.player = mlx_xpm_file_to_image(m, "textures/batman.xpm", &w, &h);
+	(game)->txt.wall = mlx_xpm_file_to_image(m, "textures/wall.xpm", &w, &h);
 }
 
 void	draw_map(t_game *g)
@@ -44,9 +44,9 @@ void	draw_map(t_game *g)
 			if (grid[i][j] == '1')
 				mlx_put_image_to_window(m, g->wind, g->txt.wall, i * 64, j * 64);
 			else if (grid[i][j] == 'E')
-				mlx_put_image_to_window(m, g->wind, g->txt.bg, i * 64, j * 64);
+				mlx_put_image_to_window(m, g->wind, g->txt.exit, i * 64, j * 64);
 			else if (grid[i][j] == 'C')
-				mlx_put_image_to_window(m, g->wind, g->txt.bg, i * 64, j * 64);
+				mlx_put_image_to_window(m, g->wind, g->txt.collec, i * 64, j * 64);
 			j++;
 			}
 	}
@@ -89,7 +89,7 @@ void	draw(t_game *g)
 		while (grid[i][j])
 		{
 			mlx_put_image_to_window(m, g->wind, g->txt.bg, i * 64, j * 64);
-		j++;
+			j++;
 		}
 		i++;
 	}

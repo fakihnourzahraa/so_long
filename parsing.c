@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 18:40:50 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 15:29:54 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ int	read_and_parse(t_map *m, int fd, char *name)
 	map.collec = c;
 	if (!get_height(&map) || !get_width(&map) || !check_len(&map))
 		return (0);
-	get_p(&map);
 	get_e(&map);
+	update_p(&map);
 	map.ff_grid = map.g;
 	flood_fill(&map, map.p_x, map.p_y);
 	if (map.g[map.e_x][map.e_y] == 'E' || map.ff_collec != map.collec)
