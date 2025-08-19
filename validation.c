@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:11:33 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/19 15:29:54 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 20:47:02 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	flood_fill(t_map *map, int i, int j)
 {
 	char	**grid;
 
-	grid = (*map).ff_grid;
+	grid = malloc (sizeof());
 	if (i < 0 || j < 0 || i >= (*map).height || j >= (*map).width
 		|| grid[i][j] == '1' || grid[i][j] == '2')
 		return ;

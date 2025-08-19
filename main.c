@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:10:40 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/19 20:08:56 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/19 20:44:19 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int errors(t_map *map, int argc, char **argv)
 {
 	int fd;
+
 	if (argc != 2 || !ft_strstr(argv[1], ".ber"))
 		return (-1);
-	ft_memset(map, 0, sizeof(t_map));
 	fd = open(argv[1], O_RDONLY);
 	if (!read_and_parse(map, fd, argv[1]))
 		return (-1);
@@ -58,6 +58,14 @@ int	main(int argc, char **argv)
 	map = malloc(sizeof(t_map));
 	if (errors(map, argc, argv) == -1)
 		return (error_message(), 0);
+	int i = 0;
+	while (map->g[i])
+	{
+		free(map->g[i]);
+		i++;
+	}
+	free(map->g);
+	free(map);
 	// game.map = &map;
 	// printf("x %d y %d", game.map->width, game.map->height);
 	//intialize(&game);
