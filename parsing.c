@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/19 20:40:48 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/21 19:59:12 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,31 @@ int	vars(t_map *map, char a)
 	int		i;
 	int		j;
 	int		c;
-	char	**grid;
 
 	i = -1;
 	c = 0;
 	j = -1;
-	grid = map->g;
-	while (grid[++i])
+	if (!map->g)
+	{
+		printf("HUH");
+		return 0;
+	}
+	while (map->g[++i])
 	{
 		j = -1;
-		while (grid[i][++j])
+		while (map->g[i][++j])
 		{
-			if (grid[i][j] == a)
+			if (map->g[i][j] == a)
 				c++;
-			if (!(grid[i][j] == '1' || grid[i][j] == '0' || grid[i][j] == 'E'
-				|| grid[i][j] == 'P' || grid[i][j] == 'C'))
+			if (!(map->g[i][j] == '1' || map->g[i][j] == '0' || map->g[i][j] == 'E'
+				|| map->g[i][j] == 'P' || map->g[i][j] == 'C'))
 				return (0);
 		}
 	}
 	if (a == 'C' && c >= 1)
 		return (c);
 	return (c == 1);
+	return 0;
 }
 
 void	free_split(char **map)
@@ -113,26 +117,28 @@ int	add_lines(char *name, int fd, t_map *m)
 	{
 		add = get_next_line(fd);
 		if (!add)
-			break ;
+			break;
 		free(add);
 		i++;
 	}
+	free(add);
 	close(fd);
 	fd = open(name, O_RDONLY);
 	if (fd == -1 || i == 0)
 		return (0);
-	m->g = malloc (sizeof(char *) * i + 1);
+	m->g = malloc (sizeof(char *) * (i + 1));
 	i = 0;
-	while (1)
+	add = get_next_line(fd);
+	while (add)
 	{
-		add = get_next_line(fd);
 		if (!add)
-			return (0);
-		if (add[ft_strlen(add) - 1] == '\n')
+			break;
+		if (add && add[ft_strlen(add) - 1] == '\n')
 			add[ft_strlen(add) - 1] = '\0';
 		m->g[i++] = add;
+		add = get_next_line(fd);
 	}
-	// free_split(grid);
+	m->g[i++] = NULL;
 	close(fd);
 	return (1);
 }
@@ -145,8 +151,6 @@ int	read_and_parse(t_map *m, int fd, char *name)
 	m->height = 0;
 	if (!add_lines(name, fd, m))
 		return (0);
-	if (m->g)
-		printf("yes");
 	c = vars(m, 'C');
 	if (!(vars(m, 'E') && vars(m, 'P') && c))
 		return (0);
@@ -156,7 +160,7 @@ int	read_and_parse(t_map *m, int fd, char *name)
 	get_e(m);
 	update_p(m);
 	m->ff_grid = m->g;
-	flood_fill(m, m->p_x, m->p_y);
+	flood_fill(m, m->ff_grid, m->p_x, m->p_y);
 	if (m->g[m->e_x][m->e_y] == 'E' || m->ff_collec != m->collec)
 		return (0);
 	return (1);

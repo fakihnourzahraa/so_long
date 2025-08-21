@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:11:33 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/19 20:47:02 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/21 19:09:37 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,23 @@ void	update_p(t_map *map)
 		}
 	}
 }
-
-void	flood_fill(t_map *map, int i, int j)
+void free_grid(char **grid, int i)
 {
-	char	**grid;
+	while (i)
+	{
+		free(grid[i]);
+		i--;
+	}
+	free(grid);	
+}
+void	flood_fill(t_map *map, char **grid, int i, int j)
+{
 
-	grid = malloc (sizeof());
-	if (i < 0 || j < 0 || i >= (*map).height || j >= (*map).width
+	if (i < 0 || j < 0 || !grid[i] || !grid[i][j]
 		|| grid[i][j] == '1' || grid[i][j] == '2')
-		return ;
+		{
+			return;
+		}
 	else if (grid[i][j] == 'C')
 	{
 		(*map).ff_collec++;
@@ -98,10 +106,10 @@ void	flood_fill(t_map *map, int i, int j)
 		return (grid[i][j] = '1', nothinn());
 	if (grid[i][j] == '2')
 	{
-		flood_fill(map, i + 1, j);
-		flood_fill(map, i, j + 1);
-		flood_fill(map, i - 1, j);
-		flood_fill(map, i, j - 1);
+		flood_fill(map, grid, i + 1, j);
+		flood_fill(map, grid, i, j + 1);
+		flood_fill(map, grid, i - 1, j);
+		flood_fill(map, grid, i, j - 1);
 	}
 }
 //for sure theres a p and c

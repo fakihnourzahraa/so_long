@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:01:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/19 20:38:02 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/21 20:09:53 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_game {
 
 	t_txt		txt;
 	t_map	*map;
-	void	**mlx;
+	void	*mlx;
 	void	*wind;
 	int		count;
 	void	*img;
@@ -70,7 +70,7 @@ typedef struct s_game {
 
 
 int		read_and_parse(t_map *map, int fd, char	*name);
-void	flood_fill(t_map *map, int i, int j);
+void	flood_fill(t_map *map, char **grid, int i, int j);
 void	update_p(t_map *map);
 void	get_e(t_map *map);
 int		check_len(t_map *map);
