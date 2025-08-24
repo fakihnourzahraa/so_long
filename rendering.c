@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 19:32:58 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 19:00:01 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 19:23:20 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,9 @@ int		cleanup(int key, void *p)
 
 void	escape_game(t_game *game, int a)
 {
-	// t_map	*map;
-	// char	**grid;
-	// int		i;
-
-	// i = 0;
-	// if (game)
-	// {
-	// 	if (game->map)
-	// 		map = game->map;
-	// }
-	// grid = map->g;
-	// if (a && game->map->collec != 0)
-	// 	return ;
-	(void)a;
+	if (a && game->map->collec != 0)
+		return ;
+	
 	free_twod(game->map->g);
 	free_twod(game->map->ff_grid);
 	mlx_destroy_window(game->mlx, game->wind);

@@ -111,25 +111,6 @@
 // 	update_p(g->map);
 // }
 
-// int	keys(int code, void *p)
-// {
-// 	t_game	*game;
-
-// 	game = (t_game *)p;
-	
-// 	if (code == 65361 || code == 'A')
-// 		move_left(game);
-// 	else if (code == 65363 || code == 'D')
-// 		move_right(game);
-// 	else if (code == 65362 || code == 'W')
-// 		move_up(game);
-// 	else if (code == 65364 || code == 'S')
-// 		move_down(game);
-// 	else if (code == 65307 || code == 'q' || code == 'Q')
-// 		escape_game(game, 0);
-// 	return (0);
-// }
-
 
 // Replace all your movement functions with these safe versions:
 
@@ -158,6 +139,7 @@ void	move_left(t_game *g)
 		if (g->map->collec == 0)
 		{
 			//printf("Victory! You collected all items!\n");
+			escape_game(g, 1);
 			exit(0);
 		}
 		//printf("Need to collect %d more items\n", g->map->collec);
@@ -212,6 +194,7 @@ void	move_right(t_game *g)
 		if (g->map->collec == 0)
 		{
 			//printf("Victory! You collected all items!\n");
+			escape_game(g, 1);
 			exit(0);
 		}
 		//printf("Need to collect %d more items\n", g->map->collec);
@@ -266,6 +249,7 @@ void	move_up(t_game *g)
 		if (g->map->collec == 0)
 		{
 			//printf("Victory! You collected all items!\n");
+			escape_game(g, 1);
 			exit(0);
 		}
 		//printf("Need to collect %d more items\n", g->map->collec);
@@ -320,6 +304,7 @@ void	move_down(t_game *g)
 		if (g->map->collec == 0)
 		{
 			//printf("Victory! You collected all items!\n");
+			escape_game(g, 1);
 			exit(0);
 		}
 		//printf("Need to collect %d more items\n", g->map->collec);
@@ -348,36 +333,21 @@ void	move_down(t_game *g)
 		//printf("Can't move there - blocked by '%c'\n", next_tile);
 	}
 }
-
-// Updated keys function to use all movements:
 int	keys(int code, void *p)
 {
-	if (!p)
-		return (0);
+	t_game	*game;
+
+	game = (t_game *)p;
 	
-	t_game *game = (t_game *)p;
-	//printf("\n=== Key pressed: %d ===\n", code);
-	
-	if (code == 65307 || code == 'q' || code == 'Q')  // ESC or Q
-	{
-		//printf("Exiting game...\n");
-		exit(0);
-	}
-	
-	// Movement keys
-	if (code == 65361 || code == 'a' || code == 'A')       // Left arrow or A
+	if (code == 65361 || code == 'A')
 		move_left(game);
-	else if (code == 65363 || code == 'd' || code == 'D')  // Right arrow or D
+	else if (code == 65363 || code == 'D')
 		move_right(game);
-	else if (code == 65362 || code == 'w' || code == 'W')  // Up arrow or W
+	else if (code == 65362 || code == 'W')
 		move_up(game);
-	else if (code == 65364 || code == 's' || code == 'S')  // Down arrow or S
+	else if (code == 65364 || code == 'S')
 		move_down(game);
-	// else
-		//printf("Unhandled key: %d\n", code);
-	
-	//printf("Current position: (%d, %d), Items left: %d\n", 
-		// game->map->p_x, game->map->p_y, game->map->collec);
-	
+	else if (code == 65307 || code == 'q' || code == 'Q')
+		escape_game(game, 0);
 	return (0);
 }
