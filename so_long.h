@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:01:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 17:49:20 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 18:26:12 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		cleanup(int key, void *p);
 void	escape_game(t_game *game, int a);
 void	error_message(void);
 void	nothinn(void);
+void	free_twod(char **g);
 
 void	free_split(char **map);
 

@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 17:49:09 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 18:00:49 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,20 +147,16 @@ void	copy_grid(t_map *map)
 	char	**og;
 	char	**m;
 	int		i;
-	int		j;
 
 	og = map->g;
 	i = 0;
+	m = malloc (sizeof(char *) * (map->height + 1));
 	while(og[i])
 	{
-		j = 0;
-		while (og[i][j])
-		{
-			m[i][j] = og[i][j];
-			j++;
-		}
+		m[i] = ft_strdup(og[i]);
 		i++;
 	}
+	m[i] = NULL;
 	map->ff_grid = m;
 }
 int	read_and_parse(t_map *m, int fd, char *name)
@@ -181,7 +177,7 @@ int	read_and_parse(t_map *m, int fd, char *name)
 	update_p(m);
 	copy_grid(m);
 	flood_fill(m, m->p_x, m->p_y);
-	if (m->g[m->e_x][m->e_y] == 'E' || m->ff_collec != m->collec)
+	if (m->ff_grid[m->e_x][m->e_y] == 'E' || m->ff_collec != m->collec)
 		return (0);
 	return (1);
 }

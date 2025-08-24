@@ -137,36 +137,36 @@ void	move_left(t_game *g)
 {
 	if (!g || !g->map || !g->map->g)
 	{
-		printf("ERROR: Invalid pointers in move_left\n");
+		//printf("ERROR: Invalid pointers in move_left\n");
 		return;
 	}
 	
-	printf("Moving left from (%d, %d)\n", g->map->p_x, g->map->p_y);
+	//printf("Moving left from (%d, %d)\n", g->map->p_x, g->map->p_y);
 	
 	// Check bounds
 	if (g->map->p_y - 1 < 0)
 	{
-		printf("Can't move left - at edge\n");
+		//printf("Can't move left - at edge\n");
 		return;
 	}
 	
 	char next_tile = g->map->g[g->map->p_x][g->map->p_y - 1];
-	printf("Next tile: '%c'\n", next_tile);
+	//printf("Next tile: '%c'\n", next_tile);
 	
 	if (next_tile == 'E')
 	{
 		if (g->map->collec == 0)
 		{
-			printf("Victory! You collected all items!\n");
+			//printf("Victory! You collected all items!\n");
 			exit(0);
 		}
-		printf("Need to collect %d more items\n", g->map->collec);
+		//printf("Need to collect %d more items\n", g->map->collec);
 		return;
 	}
 	
 	if (next_tile == '0')
 	{
-		printf("Moving to empty space\n");
+		//printf("Moving to empty space\n");
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x][g->map->p_y - 1] = 'P';
 		g->map->p_y--;
@@ -174,7 +174,7 @@ void	move_left(t_game *g)
 	}
 	else if (next_tile == 'C')
 	{
-		printf("Collecting item! (%d left)\n", g->map->collec - 1);
+		//printf("Collecting item! (%d left)\n", g->map->collec - 1);
 		g->map->collec--;
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x][g->map->p_y - 1] = 'P';
@@ -183,7 +183,7 @@ void	move_left(t_game *g)
 	}
 	else
 	{
-		printf("Can't move there - blocked by '%c'\n", next_tile);
+		//printf("Can't move there - blocked by '%c'\n", next_tile);
 	}
 }
 
@@ -191,36 +191,36 @@ void	move_right(t_game *g)
 {
 	if (!g || !g->map || !g->map->g)
 	{
-		printf("ERROR: Invalid pointers in move_right\n");
+		//printf("ERROR: Invalid pointers in move_right\n");
 		return;
 	}
 	
-	printf("Moving right from (%d, %d)\n", g->map->p_x, g->map->p_y);
+	//printf("Moving right from (%d, %d)\n", g->map->p_x, g->map->p_y);
 	
 	// Check bounds
 	if (g->map->p_y + 1 >= g->map->width)
 	{
-		printf("Can't move right - at edge\n");
+		//printf("Can't move right - at edge\n");
 		return;
 	}
 	
 	char next_tile = g->map->g[g->map->p_x][g->map->p_y + 1];
-	printf("Next tile: '%c'\n", next_tile);
+	//printf("Next tile: '%c'\n", next_tile);
 	
 	if (next_tile == 'E')
 	{
 		if (g->map->collec == 0)
 		{
-			printf("Victory! You collected all items!\n");
+			//printf("Victory! You collected all items!\n");
 			exit(0);
 		}
-		printf("Need to collect %d more items\n", g->map->collec);
+		//printf("Need to collect %d more items\n", g->map->collec);
 		return;
 	}
 	
 	if (next_tile == '0')
 	{
-		printf("Moving to empty space\n");
+		//printf("Moving to empty space\n");
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x][g->map->p_y + 1] = 'P';
 		g->map->p_y++;
@@ -228,7 +228,7 @@ void	move_right(t_game *g)
 	}
 	else if (next_tile == 'C')
 	{
-		printf("Collecting item! (%d left)\n", g->map->collec - 1);
+		//printf("Collecting item! (%d left)\n", g->map->collec - 1);
 		g->map->collec--;
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x][g->map->p_y + 1] = 'P';
@@ -237,7 +237,7 @@ void	move_right(t_game *g)
 	}
 	else
 	{
-		printf("Can't move there - blocked by '%c'\n", next_tile);
+		//printf("Can't move there - blocked by '%c'\n", next_tile);
 	}
 }
 
@@ -245,36 +245,36 @@ void	move_up(t_game *g)
 {
 	if (!g || !g->map || !g->map->g)
 	{
-		printf("ERROR: Invalid pointers in move_up\n");
+		//printf("ERROR: Invalid pointers in move_up\n");
 		return;
 	}
 	
-	printf("Moving up from (%d, %d)\n", g->map->p_x, g->map->p_y);
+	//printf("Moving up from (%d, %d)\n", g->map->p_x, g->map->p_y);
 	
 	// Check bounds
 	if (g->map->p_x - 1 < 0)
 	{
-		printf("Can't move up - at edge\n");
+		//printf("Can't move up - at edge\n");
 		return;
 	}
 	
 	char next_tile = g->map->g[g->map->p_x - 1][g->map->p_y];
-	printf("Next tile: '%c'\n", next_tile);
+	//printf("Next tile: '%c'\n", next_tile);
 	
 	if (next_tile == 'E')
 	{
 		if (g->map->collec == 0)
 		{
-			printf("Victory! You collected all items!\n");
+			//printf("Victory! You collected all items!\n");
 			exit(0);
 		}
-		printf("Need to collect %d more items\n", g->map->collec);
+		//printf("Need to collect %d more items\n", g->map->collec);
 		return;
 	}
 	
 	if (next_tile == '0')
 	{
-		printf("Moving to empty space\n");
+		//printf("Moving to empty space\n");
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x - 1][g->map->p_y] = 'P';
 		g->map->p_x--;
@@ -282,7 +282,7 @@ void	move_up(t_game *g)
 	}
 	else if (next_tile == 'C')
 	{
-		printf("Collecting item! (%d left)\n", g->map->collec - 1);
+		//printf("Collecting item! (%d left)\n", g->map->collec - 1);
 		g->map->collec--;
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x - 1][g->map->p_y] = 'P';
@@ -291,7 +291,7 @@ void	move_up(t_game *g)
 	}
 	else
 	{
-		printf("Can't move there - blocked by '%c'\n", next_tile);
+		//printf("Can't move there - blocked by '%c'\n", next_tile);
 	}
 }
 
@@ -299,36 +299,36 @@ void	move_down(t_game *g)
 {
 	if (!g || !g->map || !g->map->g)
 	{
-		printf("ERROR: Invalid pointers in move_down\n");
+		//printf("ERROR: Invalid pointers in move_down\n");
 		return;
 	}
 	
-	printf("Moving down from (%d, %d)\n", g->map->p_x, g->map->p_y);
+	//printf("Moving down from (%d, %d)\n", g->map->p_x, g->map->p_y);
 	
 	// Check bounds
 	if (g->map->p_x + 1 >= g->map->height)
 	{
-		printf("Can't move down - at edge\n");
+		//printf("Can't move down - at edge\n");
 		return;
 	}
 	
 	char next_tile = g->map->g[g->map->p_x + 1][g->map->p_y];
-	printf("Next tile: '%c'\n", next_tile);
+	//printf("Next tile: '%c'\n", next_tile);
 	
 	if (next_tile == 'E')
 	{
 		if (g->map->collec == 0)
 		{
-			printf("Victory! You collected all items!\n");
+			//printf("Victory! You collected all items!\n");
 			exit(0);
 		}
-		printf("Need to collect %d more items\n", g->map->collec);
+		//printf("Need to collect %d more items\n", g->map->collec);
 		return;
 	}
 	
 	if (next_tile == '0')
 	{
-		printf("Moving to empty space\n");
+		//printf("Moving to empty space\n");
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x + 1][g->map->p_y] = 'P';
 		g->map->p_x++;
@@ -336,7 +336,7 @@ void	move_down(t_game *g)
 	}
 	else if (next_tile == 'C')
 	{
-		printf("Collecting item! (%d left)\n", g->map->collec - 1);
+		//printf("Collecting item! (%d left)\n", g->map->collec - 1);
 		g->map->collec--;
 		g->map->g[g->map->p_x][g->map->p_y] = '0';
 		g->map->g[g->map->p_x + 1][g->map->p_y] = 'P';
@@ -345,7 +345,7 @@ void	move_down(t_game *g)
 	}
 	else
 	{
-		printf("Can't move there - blocked by '%c'\n", next_tile);
+		//printf("Can't move there - blocked by '%c'\n", next_tile);
 	}
 }
 
@@ -356,11 +356,11 @@ int	keys(int code, void *p)
 		return (0);
 	
 	t_game *game = (t_game *)p;
-	printf("\n=== Key pressed: %d ===\n", code);
+	//printf("\n=== Key pressed: %d ===\n", code);
 	
 	if (code == 65307 || code == 'q' || code == 'Q')  // ESC or Q
 	{
-		printf("Exiting game...\n");
+		//printf("Exiting game...\n");
 		exit(0);
 	}
 	
@@ -373,11 +373,11 @@ int	keys(int code, void *p)
 		move_up(game);
 	else if (code == 65364 || code == 's' || code == 'S')  // Down arrow or S
 		move_down(game);
-	else
-		printf("Unhandled key: %d\n", code);
+	// else
+		//printf("Unhandled key: %d\n", code);
 	
-	printf("Current position: (%d, %d), Items left: %d\n", 
-		game->map->p_x, game->map->p_y, game->map->collec);
+	//printf("Current position: (%d, %d), Items left: %d\n", 
+		// game->map->p_x, game->map->p_y, game->map->collec);
 	
 	return (0);
 }

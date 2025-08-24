@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:35:10 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/18 20:35:43 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 18:26:44 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,18 @@ void	error_message(void)
 void	nothinn(void)
 {
 	write(1, "", 0);
+}
+void	free_twod(char **g)
+{
+	int	i;
+
+	i = 0;
+	if (!g)
+		return ;
+	while(g[i])
+	{
+		free(g[i]);
+		i++;
+	}
+	free(g);
 }

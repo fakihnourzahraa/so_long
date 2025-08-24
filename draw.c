@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:34:22 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 17:39:28 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 18:12:30 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	draw(t_game *g)
 	int		i;
 	int		j;
 	
-	i = -1;
+	i = 0;
 	m = g->mlx;
 	grid = g->map->g;
-	while (grid[++i])
+ 	while (grid && grid[i])
 	{
 		j = 0;
 		while (grid[i][j])
