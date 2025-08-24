@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:10:40 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/21 20:33:36 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 17:38:24 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,13 @@ int errors(t_map *map, int argc, char **argv)
 		return (0);
 	return (1);
 }
-void	intialize(t_game *game)
+void	intialize(t_game *game, t_map *map)
 {
-	t_map	map;
-
-	map = *(game)->map;
-	printf("hi %s", map.g[0]);
+	game->map = map;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (error_message(), nothinn());
-	game->wind = mlx_new_window(game->mlx, map.width * 64, map.height * 64, "so_long");
+	game->wind = mlx_new_window(game->mlx, game->map->width * 64, game->map->height * 64, "so_long");
 	if (!game->wind)
 		return (error_message(), nothinn());
 	get_image(game);
@@ -40,7 +37,7 @@ void	intialize(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_map 	*map;
-	t_game	game;
+	t_game	*game;
 	
 	map = malloc(sizeof(t_map));
 	map->g = NULL;
@@ -57,13 +54,13 @@ int	main(int argc, char **argv)
 		free(map);
 		return (error_message(), 0);
 	}
-	game.map = map;
-	intialize(&game);
-	draw(&game);
-	mlx_key_hook(game.wind, keys, &game);
-	mlx_hook(game.wind, 17, 0, cleanup, &game);
-	mlx_loop(game.mlx);
-	free(map);
+	game = malloc (sizeof(t_game));
+	game->map = map;
+	intialize(game, map);
+	draw(game);
+	mlx_key_hook(game->wind, keys, game);
+	mlx_hook(game->wind, 17, 0, cleanup, game);
+	mlx_loop(game->mlx);
 }
 	// int	i = 0;
 	// while (map->g[i])

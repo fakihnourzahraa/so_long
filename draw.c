@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:34:22 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/21 21:00:44 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 17:39:28 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	get_image(t_game *game)
 {
-	int	w;
-	int	h;
+	int		w;
+	int		h;
 	void	*m;
 
 	m = game->mlx;
@@ -42,11 +42,13 @@ void	draw_map(t_game *g)
 		while (grid[i][j])
 		{
 			if (grid[i][j] == '1')
-				mlx_put_image_to_window(m, g->wind, g->txt.collec, j * 64, i * 64);
+				mlx_put_image_to_window(m, g->wind, g->txt.wall, j * 64, i * 64);
 			if (grid[i][j] == 'E')
 				mlx_put_image_to_window(m, g->wind, g->txt.exit, j * 64, i * 64);
 			if (grid[i][j] == 'C')
 				mlx_put_image_to_window(m, g->wind, g->txt.collec, j * 64, i * 64);
+			if (grid[i][j] == '0')
+				mlx_put_image_to_window(m, g->wind, g->txt.bg, j * 64, i * 64);
 			j++;
 		}
 	}
@@ -57,7 +59,7 @@ void	draw_player(t_game *g)
 	void	*m;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	m = g->mlx;
 	grid = g->map->g;
@@ -83,21 +85,21 @@ void	draw(t_game *g)
 	i = -1;
 	m = g->mlx;
 	grid = g->map->g;
-	// while (grid[++i])
-	// {
-	// 	j = 0;
-	// 	while (grid[i][j])
-	// 	{
-	// 		mlx_put_image_to_window(m, g->wind, g->txt.bg, j * 64, i * 64);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
+	while (grid[++i])
+	{
+		j = 0;
+		while (grid[i][j])
+		{
+			mlx_put_image_to_window(m, g->wind, g->txt.bg, j * 64, i * 64);
+			j++;
+		}
+		i++;
+	}
 	// Check if your sprites are actually loaded
-printf("Wall sprite: %p\n", g->txt.wall);
-printf("Exit sprite: %p\n", g->txt.exit);
-printf("Collec sprite: %p\n", g->txt.collec);
-printf("Player sprite: %p\n", g->txt.player);
+// printf("Wall sprite: %p\n", g->txt.wall);
+// printf("Exit sprite: %p\n", g->txt.exit);
+// printf("Collec sprite: %p\n", g->txt.collec);
+// printf("Player sprite: %p\n", g->txt.player);
 	draw_map(g);
 	draw_player(g);
 }

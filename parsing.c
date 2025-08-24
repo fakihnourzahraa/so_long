@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/21 19:59:12 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 17:49:09 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,27 @@ int	add_lines(char *name, int fd, t_map *m)
 	close(fd);
 	return (1);
 }
+void	copy_grid(t_map *map)
+{
+	char	**og;
+	char	**m;
+	int		i;
+	int		j;
 
+	og = map->g;
+	i = 0;
+	while(og[i])
+	{
+		j = 0;
+		while (og[i][j])
+		{
+			m[i][j] = og[i][j];
+			j++;
+		}
+		i++;
+	}
+	map->ff_grid = m;
+}
 int	read_and_parse(t_map *m, int fd, char *name)
 {
 	int		c;
@@ -159,8 +179,8 @@ int	read_and_parse(t_map *m, int fd, char *name)
 		return (0);
 	get_e(m);
 	update_p(m);
-	m->ff_grid = m->g;
-	flood_fill(m, m->ff_grid, m->p_x, m->p_y);
+	copy_grid(m);
+	flood_fill(m, m->p_x, m->p_y);
 	if (m->g[m->e_x][m->e_y] == 'E' || m->ff_collec != m->collec)
 		return (0);
 	return (1);

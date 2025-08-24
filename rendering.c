@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 19:32:58 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/21 20:27:35 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/24 16:51:04 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	escape_game(t_game *game, int a)
 	int		i;
 
 	i = 0;
-	map = game->map;
+	if (game)
+	{
+		if (game->map)
+			map = game->map;
+	}
 	grid = map->g;
 	if (a && game->map->collec != 0)
 		return ;
