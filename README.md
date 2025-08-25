@@ -10,6 +10,7 @@
 	-> valid path
 	_. make sure width != height
 
+seg fault with x
 	ESC key is pressed, your window should close.
 window is resized, you should print something in your terminal.
 the red cross is clicked, your window should close.

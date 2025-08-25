@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:34:22 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 18:12:30 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/25 18:39:02 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	draw_map(t_game *g)
 	int		i;
 	int		j;
 	
-	i = -1;
+	i = 0;
 	m = g->mlx;
 	grid = g->map->g;
-	while (grid[++i])
+	while (grid[i])
 	{
 		j = 0;
 		while (grid[i][j])
@@ -51,6 +51,7 @@ void	draw_map(t_game *g)
 				mlx_put_image_to_window(m, g->wind, g->txt.bg, j * 64, i * 64);
 			j++;
 		}
+		i++;
 	}
 }
 void	draw_player(t_game *g)
@@ -93,13 +94,9 @@ void	draw(t_game *g)
 			mlx_put_image_to_window(m, g->wind, g->txt.bg, j * 64, i * 64);
 			j++;
 		}
+		mlx_put_image_to_window(m, g->wind, g->txt.bg, j * 64, i * 64);
 		i++;
 	}
-	// Check if your sprites are actually loaded
-// printf("Wall sprite: %p\n", g->txt.wall);
-// printf("Exit sprite: %p\n", g->txt.exit);
-// printf("Collec sprite: %p\n", g->txt.collec);
-// printf("Player sprite: %p\n", g->txt.player);
 	draw_map(g);
 	draw_player(g);
 }

@@ -6,7 +6,7 @@
 #    By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/19 17:23:49 by nfakih            #+#    #+#              #
-#    Updated: 2025/08/24 18:00:34 by nfakih           ###   ########.fr        #
+#    Updated: 2025/08/25 16:59:49 by nfakih           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC = main.c \
 OBJ     = $(SRC:.c=.o)
 
 CC      = cc
-CFLAGS  =  -Wall -Werror -Wextra -Iminilibx-linux -g -Ift_printf -Iget_next_line -ILibft
+CFLAGS  =  -Iminilibx-linux -g -Ift_printf -Iget_next_line -ILibft
 
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a

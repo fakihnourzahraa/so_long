@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:35:10 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 18:26:44 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/25 19:02:40 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,7 @@ void	free_twod(char **g)
 	}
 	free(g);
 }
+void	print_count()
+	write(1, "count: ", 6);
+	write(1, n, ft_strlen(n));
+	write(1, "\n", 1);

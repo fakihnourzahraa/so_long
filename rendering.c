@@ -6,27 +6,23 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 19:32:58 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 19:23:20 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/25 18:58:27 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
 
-int		cleanup(int key, void *p)
+int	escape_game(t_game *game, int a)
 {
-	t_game	*game;
-	
-	(void)key;
-	game = (t_game *)p;
-	escape_game(game, 0);
+	game->count++;
+	if (a && game->map->collec != 0)
+		return (0);
+	escape(game);
 	return (0);
 }
 
-void	escape_game(t_game *game, int a)
+int	escape(t_game *game)
 {
-	if (a && game->map->collec != 0)
-		return ;
-	
 	free_twod(game->map->g);
 	free_twod(game->map->ff_grid);
 	mlx_destroy_window(game->mlx, game->wind);
@@ -41,4 +37,5 @@ void	escape_game(t_game *game, int a)
 	game->mlx = NULL;
 	free(game);
 	exit(0);
+	return (1);
 }

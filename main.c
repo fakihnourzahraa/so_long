@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:10:40 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 18:56:36 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/25 18:52:26 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,16 @@ int errors(t_map *map, int argc, char **argv)
 void	intialize(t_game *game, t_map *map)
 {
 	game->map = map;
+	game->count = 0;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (error_message(), nothinn());
-	game->wind = mlx_new_window(game->mlx, game->map->width * 64, game->map->height * 64, "so_long");
+	game->wind = mlx_new_window(game->mlx, (game->map->width + 1)* 64, (game->map->height)* 64, "so_long");
 	if (!game->wind)
 		return (error_message(), nothinn());
 	get_image(game);
 }
+
 int	main(int argc, char **argv)
 {
 	t_map 	*map;
@@ -54,7 +56,7 @@ int	main(int argc, char **argv)
 	intialize(game, map);
 	draw(game);
 	mlx_key_hook(game->wind, keys, game);
-	mlx_hook(game->wind, 17, 0, cleanup, game);
+	mlx_hook(game->wind, 17, 0, escape, game);
 	mlx_loop(game->mlx);
 }
 
