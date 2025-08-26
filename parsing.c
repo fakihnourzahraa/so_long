@@ -6,62 +6,11 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:16:41 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/25 18:44:02 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/26 13:14:20 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	get_height(t_map *map)
-{
-	char	**grid;
-	int		l;
-	int		i;
-
-	grid = (*map).g;
-	(*map).height = 0;
-	i = 0;
-	l = ft_strlen(grid[0]) - 1;
-	while (grid[i])
-	{
-		if (grid[i][l] != '1' || grid[i][0] != '1')
-			return (0);
-		i++;
-	}
-	(*map).height = i;
-	return (1);
-}
-
-int	get_width(t_map *map)
-{
-	int		i;
-	char	**grid;
-	int		j;
-
-	grid = (*map).g;
-	i = 0;
-	(*map).width = 0;
-	j = ft_strlen(grid[0]);
-	while (i < j)
-	{
-		if (grid[0][i] != '1')
-			return (0);
-		i++;
-	}
-	i = 0;
-	while (i < j)
-	{
-		if (grid[(*map).height - 1][i] != '1')
-			return (0);
-		i++;
-	}
-	(*map).width = i - 1;
-	return (1);
-}
-//get heigh get width also validate the walls
-//we also need to make sure they're all equal
-//(the first line could be the shortest)
-// in case we reach a new line, so it doesn't set w[j] = 0;
 
 int	vars(t_map *map, char a)
 {
@@ -72,11 +21,6 @@ int	vars(t_map *map, char a)
 	i = -1;
 	c = 0;
 	j = -1;
-	if (!map->g)
-	{
-		printf("HUH");
-		return 0;
-	}
 	while (map->g[++i])
 	{
 		j = -1;
@@ -84,7 +28,8 @@ int	vars(t_map *map, char a)
 		{
 			if (map->g[i][j] == a)
 				c++;
-			if (!(map->g[i][j] == '1' || map->g[i][j] == '0' || map->g[i][j] == 'E'
+			if (!(map->g[i][j] == '1' || map->g[i][j] == '0'
+				|| map->g[i][j] == 'E'
 				|| map->g[i][j] == 'P' || map->g[i][j] == 'C'))
 				return (0);
 		}
@@ -92,22 +37,9 @@ int	vars(t_map *map, char a)
 	if (a == 'C' && c >= 1)
 		return (c);
 	return (c == 1);
-	return 0;
 }
 
-void	free_split(char **map)
-{
-	int	i = 0;
-
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
-}
-
-int	add_lines(char *name, int fd, t_map *m)
+int	get_line(int fd)
 {
 	int		i;
 	char	*add;
@@ -117,12 +49,21 @@ int	add_lines(char *name, int fd, t_map *m)
 	{
 		add = get_next_line(fd);
 		if (!add)
-			break;
+			break ;
 		free(add);
 		i++;
 	}
 	free(add);
 	close(fd);
+	return (i);
+}
+
+int	add_lines(char *name, int fd, t_map *m)
+{
+	int		i;
+	char	*add;
+
+	i = get_line(fd);
 	fd = open(name, O_RDONLY);
 	if (fd == -1 || i == 0)
 		return (0);
@@ -132,7 +73,7 @@ int	add_lines(char *name, int fd, t_map *m)
 	while (add)
 	{
 		if (!add)
-			break;
+			break ;
 		if (add && add[ft_strlen(add) - 1] == '\n')
 			add[ft_strlen(add) - 1] = '\0';
 		m->g[i++] = add;
@@ -142,6 +83,7 @@ int	add_lines(char *name, int fd, t_map *m)
 	close(fd);
 	return (1);
 }
+
 void	copy_grid(t_map *map)
 {
 	char	**og;
@@ -151,7 +93,7 @@ void	copy_grid(t_map *map)
 	og = map->g;
 	i = 0;
 	m = malloc (sizeof(char *) * (map->height + 1));
-	while(og[i])
+	while (og[i])
 	{
 		m[i] = ft_strdup(og[i]);
 		i++;
@@ -159,6 +101,7 @@ void	copy_grid(t_map *map)
 	m[i] = NULL;
 	map->ff_grid = m;
 }
+
 int	read_and_parse(t_map *m, int fd, char *name)
 {
 	int		c;

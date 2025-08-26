@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 15:01:34 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/25 17:10:19 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/26 13:36:13 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef struct s_map
 	int		e_y;
 }	t_map;
 
-typedef struct	s_data {
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -49,7 +50,8 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-typedef struct s_textures {
+typedef struct s_textures
+{
 	void	*bg;
 	void	*player;
 	void	*collec;
@@ -57,12 +59,12 @@ typedef struct s_textures {
 	void	*wall;
 }			t_txt;
 
-typedef struct s_game {
-
-	t_txt		txt;
+typedef struct s_game
+{
+	t_txt	txt;
 	t_map	*map;
 	void	*mlx;
-	void	*wind;
+	void	*w;
 	int		count;
 	void	*img;
 }			t_game;
@@ -74,15 +76,19 @@ void	get_e(t_map *map);
 int		check_len(t_map *map);
 
 int		keys(int code, void *p);
-void	draw(t_game *g);
 void	get_image(t_game *game);
 
-int	escape_game(t_game *game, int a);
-int	escape(t_game *game);
+int		escape_game(t_game *game);
 void	error_message(void);
 void	nothinn(void);
 void	free_twod(char **g);
+void	update(t_game *game);
+int		get_height(t_map *map);
+int		get_width(t_map *map);
 
-void	free_split(char **map);
+void	draw_map(t_game *g);
+void	draw_player(t_game *g);
+
+int		escape_game_no_update(t_game *game);
 
 #endif

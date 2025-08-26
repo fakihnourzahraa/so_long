@@ -6,7 +6,7 @@
 /*   By: nfakih <nfakih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 17:11:33 by nfakih            #+#    #+#             */
-/*   Updated: 2025/08/24 17:49:37 by nfakih           ###   ########.fr       */
+/*   Updated: 2025/08/26 12:59:39 by nfakih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,25 @@ void	update_p(t_map *map)
 		}
 	}
 }
-void free_grid(char **grid, int i)
+
+void	free_grid(char **grid, int i)
 {
 	while (i)
 	{
 		free(grid[i]);
 		i--;
 	}
-	free(grid);	
+	free(grid);
 }
+
 void	flood_fill(t_map *map, int i, int j)
 {
 	char	**grid;
-	
+
 	grid = map->ff_grid;
 	if (i < 0 || j < 0 || !grid[i] || !grid[i][j]
 		|| grid[i][j] == '1' || grid[i][j] == '2')
-		{
-			return;
-		}
+		return ;
 	else if (grid[i][j] == 'C')
 	{
 		(*map).ff_collec++;
@@ -109,7 +109,7 @@ void	flood_fill(t_map *map, int i, int j)
 	if (grid[i][j] == '2')
 	{
 		flood_fill(map, i + 1, j);
-		flood_fill(map,i, j + 1);
+		flood_fill(map, i, j + 1);
 		flood_fill(map, i - 1, j);
 		flood_fill(map, i, j - 1);
 	}
